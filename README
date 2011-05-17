@@ -1,0 +1,48 @@
+The Grim Mail Ripper v0.1b
+
+Expects e-mail message on standard input.
+Mandatory arguments for long options are mandatory for short options too.
+
+Usage: tgmripper [options]
+  -e,     --extensions=<list>    Comma separated list of file extensions. Attachments with these
+                                 extensions only will be stripped. Provide '*' (mind shell escaping!)
+                                 to indicate that all attachments should be stripped.
+  -A,     --all                  Same as --extensions='*'.
+  -F,     --force-pgp            Force processing of PGP signed or encrypted parts that are normally
+                                 skipped.
+  -s,     --save                 Save stripped attachments.
+  -d,     --save-dir=<dir>       Directory to save stripped attachments (default ~/.tgmripper/save).
+  -b,     --backup               Save a backup of the original mail.
+  -D,     --backup-dir=<dir>     Directory to store backup (default  ~/.tgmripper/backup).
+  -I,     --ignore-errors        Attempt to ignore parsing errors. Could result in loss of data!
+                                 Implies --backup! Use tgmripper --ignore-errors --no-backup to
+                                 override backup. Note that ordering of these options matters.
+                                 Use this only as last resort, if you want to try and see what
+                                 will happen.
+  -t,     --tmp-dir=<dir>        Directory to store temporary files (default /tmp).
+  -h, -?, --help                 Print this message.
+
+You can negate flags by adding 'no' before the flag name - e.g. --nobackup or --no-backup.
+You can specify any of the long named options (without the leading '--') in the configuration
+file ~/.tgmripperrc. This file will be created, using the default values when the programme is
+started for the first time. If ignore-errors is found in the configuration file it implies 'backup=yes'
+unless 'backup=no' is explicitly set there too.
+
+==========================================================
+INSTALLATION INSTRUCTIONS:
+==========================================================
+
+ 0. Install required Perl modules:
+      - MIME::Parser
+      - MIME::Entity
+      - Getopt::Long
+      - File::Temp
+
+ 1. Copy (or link) the executable .pl script to a directory
+    on the PATH or use full path to start it.
+
+    The script is designed to be used as a filter. That is,
+    read the message from standard input and write the resulting
+    message on standard output.
+
+    See output of 'tgmripper.pl --help' for details on parameters.
